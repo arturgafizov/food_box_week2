@@ -24,6 +24,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rewiew',
             name='status',
-            field=models.CharField(choices=[('new', ' На модерации'), ('published', 'Опубликован'), ('hidden', 'Скрыт')], max_length=50),
+            field=models.CharField(choices=[('new', ' На модерации'), ('published', 'Опубликован'),
+                                            ('hidden', 'Скрыт')], max_length=50),
         ),
     ]

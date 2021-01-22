@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='rewiew',
             name='author',
-            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='rewiews', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(blank=True, on_delete=django.db.models.deletion.CASCADE, related_name='rewiews',
+                                    to=settings.AUTH_USER_MODEL),
         ),
     ]

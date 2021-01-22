@@ -1,10 +1,10 @@
 from rest_framework import status
 from rest_framework.decorators import api_view
-import requests
 from rest_framework.response import Response
 
 
 from users.models import UserSerializer
+
 
 @api_view(http_method_names=['POST'])
 def user_list(request):

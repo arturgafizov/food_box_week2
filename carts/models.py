@@ -5,6 +5,7 @@ from items.models import Item
 
 # Create your models here.
 
+
 class Cart(models.Model):
     items = models.ManyToManyField(Item)
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='carts')

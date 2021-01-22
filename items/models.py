@@ -6,7 +6,6 @@ from rest_framework.serializers import ModelSerializer
 from food_box.settings import MEDIA_ITEM_IMAGE_DIR
 
 
-
 class Item(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -19,5 +18,3 @@ class ItemSerializer(ModelSerializer):
     class Meta:
         model = Item
         fields = '__all__'
-
-
