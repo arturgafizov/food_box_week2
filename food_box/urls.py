@@ -18,9 +18,10 @@ from django.contrib import admin
 from django.urls import path
 
 from items.urls import urlpatterns_items
-#from items.urls import urlpatterns_item
+from users.urls import urlpatterns_users
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('api/v1/', include(urlpatterns_users)),
     path('api/v1/', include(urlpatterns_items)),
 ]

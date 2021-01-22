@@ -2,12 +2,17 @@ from django.shortcuts import render
 from rest_framework import status
 from rest_framework.decorators import api_view
 import requests
-from rest_framework.generics import get_object_or_404
+from rest_framework.filters import SearchFilter, OrderingFilter
+from rest_framework.generics import get_object_or_404, ListCreateAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
-from rest_framework.viewsets import ViewSet
+from rest_framework.viewsets import ViewSet, ModelViewSet
+from django_filters.rest_framework import DjangoFilterBackend
 
 from items.models import Item
 from items.models import ItemSerializer
+
+
 # Create your views here.
 @api_view(http_method_names=['GET'])
 def item_detail(request, pk):
@@ -21,7 +26,7 @@ def item_detail(request, pk):
             d['id'] = item['id']
             d['title'] = item['title']
             d['description'] = item['description']
-            d['image'] = item['image']
+            d['image'] = '/media/item_images/' + item['image'].split('/')[-1]
             d['weight'] = item['weight_grams']
             d['price'] = item['price']
             response = d
@@ -34,14 +39,15 @@ def item_detail(request, pk):
         return Response(status=status.HTTP_408_REQUEST_TIMEOUT)
 
 
-class ItemViewset(ViewSet):
-    def list(self, request):
-        queryset = Item.objects.all()
-        serializer = ItemSerializer(queryset, many=True)
-        return Response(serializer.data)
+class Itemlist(ListCreateAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer
+    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter, ]
+    filterset_fields = ['price', 'weight']
+    search_fields = ['price', 'title']
+    ordering = ['price']
 
-    def retrieve(self, request, pk=None):
-        queryset = Item.objects.all()
-        item = get_object_or_404(queryset, pk=pk)
-        serializer = ItemSerializer(item)
-        return Response(serializer.data)
+
+class Itemretrieve(RetrieveUpdateDestroyAPIView):
+    queryset = Item.objects.all()
+    serializer_class = ItemSerializer

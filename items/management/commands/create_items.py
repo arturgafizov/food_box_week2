@@ -12,7 +12,10 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         link_item = requests.get('https://raw.githubusercontent.com/stepik-a-w/drf-project-boxes/master/foodboxes.json')
         foods = link_item.json()
+
+
         for food in foods:
+
             item = Item.objects.filter(id=food['id']).first()
             name_image = food['image'].split('/')[-1]
             urlretrieve(food['image'], '/home/artyr/PycharmProjects/food_box_v3/food_box/media/item_images/' + name_image)  # через  + объединил путь и переменную
@@ -20,7 +23,7 @@ class Command(BaseCommand):
                 d={}
                 d['title'] = food['title']
                 d['description'] = food['description']
-                d['image'] = food['image']
+                d['image'] = '/media/item_images/' + food['image'].split('/')[-1]
                 d['weight'] = food['weight_grams']
                 d['price'] = food['price']
 
