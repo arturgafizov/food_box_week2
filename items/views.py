@@ -1,20 +1,24 @@
-from rest_framework.filters import SearchFilter, OrderingFilter
-from rest_framework.generics import ListCreateAPIView, RetrieveUpdateDestroyAPIView
-from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.decorators import api_view
+from rest_framework.generics import ListCreateAPIView
+from rest_framework.response import Response
 
 from items.models import Item
 from items.models import ItemSerializer
 
 
-class Itemlist(ListCreateAPIView):
-    queryset = Item.objects.all()
-    serializer_class = ItemSerializer
-    filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter, ]
-    filterset_fields = ['price', 'weight']
-    search_fields = ['price', 'title']
-    ordering = ['price']
+@api_view(http_method_names=['GET'])
+def get_item_view(request, pk):
+    item = Item.objects.get(id=pk)
+
+    return Response({
+        'id': item.id,
+        'title': item.title,
+        'description': item.description,
+        'weight': item.weight,
+        'price': item.price,
+    })
 
 
-class Itemretrieve(RetrieveUpdateDestroyAPIView):
+class ItemList(ListCreateAPIView):
     queryset = Item.objects.all()
     serializer_class = ItemSerializer

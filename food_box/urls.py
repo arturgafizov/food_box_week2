@@ -20,8 +20,13 @@ from django.urls import path
 from items.urls import urlpatterns_items
 from users.urls import urlpatterns_users
 
+api_url = [
+    path('items/', include(urlpatterns_items)),
+]
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/', include(urlpatterns_users)),
-    path('api/v1/', include(urlpatterns_items)),
+    path('api/v1/', include(api_url)),
 ]
