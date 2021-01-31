@@ -18,7 +18,9 @@ class Migration(migrations.Migration):
                 ('content', models.TextField()),
                 ('created_at', models.DateTimeField()),
                 ('published_at', models.DateTimeField()),
-                ('status', models.CharField(choices=[('new on moderation', 'Новый на модерации'), ('published', 'Опубликован'), ('hidden', 'Скрыт')], max_length=50)),
+                ('status', models.CharField(choices=[('new on moderation', 'Новый на модерации'),
+                                                     ('published', 'Опубликован'), ('hidden', 'Скрыт')],
+                                            max_length=50)),
             ],
         ),
     ]

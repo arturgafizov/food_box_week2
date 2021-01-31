@@ -20,7 +20,8 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('items', models.ManyToManyField(to='items.Item')),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='carts', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='carts',
+                                           to=settings.AUTH_USER_MODEL)),
             ],
         ),
         migrations.CreateModel(
@@ -29,8 +30,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('quantity', models.PositiveIntegerField()),
                 ('price', models.DecimalField(decimal_places=2, max_digits=13)),
-                ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cartitems', to='carts.Cart')),
-                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cartitems', to='items.Item')),
+                ('cart', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cartitems',
+                                           to='carts.Cart')),
+                ('item', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='cartitems',
+                                           to='items.Item')),
             ],
         ),
     ]
