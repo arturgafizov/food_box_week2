@@ -1,4 +1,3 @@
-from decimal import Decimal
 from django.db import models
 
 
@@ -16,7 +15,7 @@ class Cart(models.Model):
 
     @property
     def total_cost(self):
-        return self.carts.price * Decimal(self.carts.quantity)
+        return self.carts.price * self.carts.quantity
 
 
 class CartItem(models.Model):
@@ -29,4 +28,4 @@ class CartItem(models.Model):
 
     @property
     def total_price(self):
-        return self.price * Decimal(self.quantity)
+        return self.price * self.quantity
